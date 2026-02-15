@@ -26,3 +26,72 @@ html, body {
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+.homepage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.header {
+  position: sticky;
+  top: 0;
+  padding: 16px;
+  background: var(--background);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+}
+
+.searchWrapper {
+  width: 100%;
+  max-width: 500px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: none;
+  background: var(--secondary);
+}
+
+/* MASONRY GRID */
+.masonryGrid {
+  column-count: 4;
+  column-gap: 16px;
+  padding: 16px;
+  flex: 1;
+}
+
+.card {
+  break-inside: avoid;
+  margin-bottom: 16px;
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.cardImage,
+.cardVideo {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.cardText {
+  padding: 12px;
+}
+
+/* FOOTER */
+.footer {
+  position: sticky;
+  bottom: 0;
+  background: var(--background);
+  padding: 16px;
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid var(--border);
+}
