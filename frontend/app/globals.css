@@ -65,24 +65,49 @@ html, body {
   flex: 1;
 }
 
+@media (max-width: 1200px) {
+  .masonryGrid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .masonryGrid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 500px) {
+  .masonryGrid {
+    column-count: 1;
+  }
+}
+
 .card {
   break-inside: avoid;
   margin-bottom: 16px;
   background: var(--card);
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
 }
 
-.cardImage,
-.cardVideo {
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.cardMedia {
   width: 100%;
   height: auto;
+  display: block;
   object-fit: cover;
+  border-radius: 20px;
 }
 
-.cardText {
-  padding: 12px;
+.cardCaption {
+  padding: 12px 14px;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 /* FOOTER */
@@ -94,4 +119,14 @@ html, body {
   display: flex;
   justify-content: space-around;
   border-top: 1px solid var(--btn);
+}
+
+.icon {
+  opacity: 0.5;
+  transition: 0.2s ease;
+}
+
+.icon.active {
+  opacity: 1;
+  filter: brightness(0.6);
 }
