@@ -11,6 +11,9 @@ import Link from 'next/link'
 // ↑ Link is Next.js's version of an <a> tag.
 // It navigates between pages without a full browser refresh.
 
+import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/server'
+
 export default function SignInPage() {
 // ↑ This is our page. "export default" means this is the main
 // thing this file provides. Next.js looks for this function
@@ -26,6 +29,7 @@ export default function SignInPage() {
   const [password, setPassword] = useState('')
   // ↑ Same pattern for the password field
 
+
   const [showPassword, setShowPassword] = useState(false)
   // ↑ Whether to show the password as plain text or dots
   // false = hidden (dots), true = visible
@@ -38,29 +42,28 @@ export default function SignInPage() {
   // ↑ If something goes wrong, we store the error message here
   // so we can show it to the user
 
-  // --- What happens when they click "Sign in" ---
-  function handleSignIn(e: React.FormEvent) {
-    e.preventDefault()
-    // ↑ By default, submitting a form refreshes the entire page.
-    // e.preventDefault() stops that so we stay on the same page.
+  const router = useRouter()
+  const supabase = createClient()
 
-    setLoading(true)
-    // ↑ Show the loading state while we process
 
-    setError('')
-    // ↑ Clear any previous error message
+async function handleSignIn(e: React.FormEvent) {
+  e.preventDefault()
+  setLoading(true)
+  setError('')
 
-    // For now we just log what they typed.
-    // We'll connect this to Supabase in the next step.
-    console.log('Email:', email, 'Password:', password)
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
 
-    // Fake a brief delay so we can see the loading state works
-    setTimeout(() => {
-      setLoading(false)
-      // ↑ After 1 second, turn off loading
-      // When we add Supabase, this becomes a real auth call
-    }, 1000)
+  if (error) {
+    setError(error.message)
+    setLoading(false)
+    return
   }
+
+  router.push('/dashboard')
+}
 
   // --- What the page looks like ---
   // Everything inside the return() is what gets displayed.
