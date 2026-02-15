@@ -1,7 +1,7 @@
 # CalHacks26
-Repository for Timecapsule a CalHacks26 project.
+Repository for Timecapsule - a CalHacks26 project.
 
-#Authors: Adam Chan, Lucas Kasdorf, Benny Liang
+# Authors: Adam Chan, Lucas Kasdorf, Benny Liang
 
 
 # Steps to run
