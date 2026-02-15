@@ -14,9 +14,8 @@ export default function Footer() {
   const dashboardPath = "/landing"; // change to dashboard later
   const userPath = "/user";
   const friendsPath = "/friends";
-  const settingsPath = "/settings";
+  const settingsPath = userPath + "/settings";
   const logoutPath = "/signin";
-
   const assetsFolderPath = "/assets";
 
   return (
