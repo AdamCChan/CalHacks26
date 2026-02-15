@@ -240,7 +240,7 @@ async function handleSignIn(e: React.FormEvent) {
                 {error}
               </p>
             )}
-            {/* ↑ The {error && ...} pattern means:
+            {/* The {error && ...} pattern means:
                 "if error is truthy (not empty), render this element"
                 If error is an empty string '', nothing renders. */}
 

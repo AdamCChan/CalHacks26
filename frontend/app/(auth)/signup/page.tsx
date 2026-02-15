@@ -9,20 +9,23 @@ export default function SignUpPage() {
 
   // --- State variables ---
   // Same pattern as sign in — each input has its own state variable
-
+  
+  // Confirm is the "Confirm your password" field.
+  // We compare it against password before submitting.
   const [email, setEmail]       = useState('')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm]   = useState('')
-  // ↑ confirm is the "Confirm your password" field.
-  // We compare it against password before submitting.
 
-  const [notify, setNotify]     = useState(false)
-  // ↑ The notifications checkbox. Checkboxes store true/false
+
+  // The notifications checkbox. Checkboxes store true/false
   // instead of a string, so we start with false (unchecked).
+  const [notify, setNotify]     = useState(false)
 
+
+  // Two separate show/hide toggles — one for each password field
   const [showPassword, setShowPassword]   = useState(false)
   const [showConfirm, setShowConfirm]     = useState(false)
-  // ↑ Two separate show/hide toggles — one for each password field
+ 
 
   const [loading, setLoading]   = useState(false)
   const [error, setError]       = useState('')
@@ -35,12 +38,11 @@ export default function SignUpPage() {
     e.preventDefault()
     setError('')
 
-    // Client-side validation — we check these BEFORE calling Supabase.
+    // Client-side validation — check these BEFORE calling Supabase.
     // This gives instant feedback without a network round trip.
     if (password !== confirm) {
       setError('Passwords do not match.')
       return
-      // ↑ return stops the function here. Nothing below runs.
     }
 
     if (password.length < 8) {
@@ -58,9 +60,9 @@ export default function SignUpPage() {
       password,
       options: {
         data: {
+          // This stores the checkbox value in the user's metadata.
+          // Supabase keeps this alongside their account. 
           notify_on_release: notify,
-          // ↑ This stores the checkbox value in the user's metadata.
-          // Supabase keeps this alongside their account.
         }
       }
     })
@@ -114,7 +116,7 @@ export default function SignUpPage() {
               color: '#8b4513',
               lineHeight: '1',
             }}>
-              timecapsule
+              Timecapsule
             </h1>
             <p style={{
               fontFamily: '"Playfair Display", Georgia, serif',
@@ -150,7 +152,7 @@ export default function SignUpPage() {
                 transform: 'translateY(-50%)', color: '#a89070',
                 pointerEvents: 'none',
               }}>
-                ✉
+              <img src="/assets/email.png" alt="email" style={{ width: '18px', height: '18px', opacity: 0.6 }} />
               </span>
               <input
                 type="email"
@@ -174,7 +176,7 @@ export default function SignUpPage() {
                 transform: 'translateY(-50%)', color: '#a89070',
                 pointerEvents: 'none',
               }}>
-                🔒
+              <img src="/assets/lock.png" alt="lock" style={{ width: '18px', height: '18px', opacity: 0.6 }} />
               </span>
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -199,7 +201,11 @@ export default function SignUpPage() {
                   fontSize: '16px', padding: '0',
                 }}
               >
-                {showPassword ? '🙈' : '👁'}
+                <img
+                  src={showPassword ? '/assets/hide.png' : '/assets/view.png'}
+                  alt={showPassword ? 'hide password' : 'show password'}
+                  style={{ width: '18px', height: '18px', opacity: 0.6 }}
+                />
               </button>
             </div>
 
@@ -212,7 +218,7 @@ export default function SignUpPage() {
                 transform: 'translateY(-50%)', color: '#a89070',
                 pointerEvents: 'none',
               }}>
-                🔒
+              <img src="/assets/lock.png" alt="lock" style={{ width: '18px', height: '18px', opacity: 0.6 }} />
               </span>
               <input
                 type={showConfirm ? 'text' : 'password'}
@@ -237,7 +243,11 @@ export default function SignUpPage() {
                   fontSize: '16px', padding: '0',
                 }}
               >
-                {showConfirm ? '🙈' : '👁'}
+                <img
+                  src={showPassword ? '/assets/hide.png' : '/assets/view.png'}
+                  alt={showPassword ? 'hide password' : 'show password'}
+                  style={{ width: '18px', height: '18px', opacity: 0.6 }}
+                />
               </button>
             </div>
 
@@ -256,9 +266,9 @@ export default function SignUpPage() {
               <input
                 type="checkbox"
                 checked={notify}
-                onChange={e => setNotify(e.target.checked)}
-                // ↑ Checkboxes use e.target.checked (true/false)
+                // Checkboxes use e.target.checked (true/false)
                 // instead of e.target.value (string) like text inputs do.
+                onChange={e => setNotify(e.target.checked)}
                 style={{ width: '18px', height: '18px', accentColor: '#6b7a45' }}
               />
               Turn on email notifications
@@ -315,17 +325,11 @@ export default function SignUpPage() {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-          <p style={{
-            fontFamily: '"Playfair Display", serif',
-            fontStyle: 'italic',
-            color: '#5c4a3a',
-            opacity: 0.5,
-            fontSize: '0.85rem',
-            textAlign: 'center',
-            padding: '24px',
-          }}>
-            Add tree.svg here
-          </p>
+          <img
+            src="/assets/logo.png"
+            alt="Timecapsule tree"
+            style={{ maxHeight: '400px', width: '100%', height: '100%', objectFit: 'cover', marginBottom: '50px' }}
+          />
         </div>
 
       </div>
