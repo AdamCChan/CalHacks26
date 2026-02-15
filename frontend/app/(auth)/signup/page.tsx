@@ -74,7 +74,7 @@ export default function SignUpPage() {
     }
 
     // Account created — send to dashboard
-    router.push('/dashboard')
+    router.push('/landing')
   }
 
   // --- What the page looks like ---
