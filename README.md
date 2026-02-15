@@ -22,3 +22,4 @@ new terminal:
 - Notification implementation
 - Increased user personalization and accessibility
 - Increase responsiveness for mobile use
+- Show info about the currently signed-in user
