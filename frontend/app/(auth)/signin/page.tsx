@@ -1,72 +1,62 @@
 'use client'
-// ↑ This tells Next.js: "this page needs to run in the browser"
-// Without this, Next.js tries to run the page on the server,
-// which breaks things like typing into inputs and clicking buttons.
-
 import { useState } from 'react'
-// ↑ We're importing the useState tool from React.
-// useState is how React remembers what the user has typed.
-
 import Link from 'next/link'
-// ↑ Link is Next.js's version of an <a> tag.
-// It navigates between pages without a full browser refresh.
-
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 
+// export default means this is the main thing this file provides. Next.js. provides signin url
 export default function SignInPage() {
-// ↑ This is our page. "export default" means this is the main
-// thing this file provides. Next.js looks for this function
-// to know what to display at the /signin URL.
 
   // --- State variables ---
   // These are the things our page needs to remember.
 
-  const [email, setEmail] = useState('')
-  // ↑ email: what the user has typed in the email box (starts empty)
+  // email: what the user has typed in the email box (starts empty)
   // setEmail: the function we call when they type something
 
+  const [email, setEmail] = useState('')
+
+  // Same pattern for the password field  
   const [password, setPassword] = useState('')
-  // ↑ Same pattern for the password field
 
-
-  const [showPassword, setShowPassword] = useState(false)
-  // ↑ Whether to show the password as plain text or dots
+  // Whether to show the password as plain text or dots
   // false = hidden (dots), true = visible
+  const [showPassword, setShowPassword] = useState(false)
 
-  const [loading, setLoading] = useState(false)
-  // ↑ Whether the form is currently submitting.
+  // Whether the form is currently submitting.
   // We use this to disable the button and show "Signing in..."
+  const [loading, setLoading] = useState(false)
 
-  const [error, setError] = useState('')
-  // ↑ If something goes wrong, we store the error message here
+  // If something goes wrong, we store the error message here
   // so we can show it to the user
+  const [error, setError] = useState('')
 
   const router = useRouter()
   const supabase = createClient()
 
-
+// --- The sign-in function ---
+// This runs when the user submits the form. It tries to sign in with Supabase,
 async function handleSignIn(e: React.FormEvent) {
   e.preventDefault()
   setLoading(true)
   setError('')
 
+  // signInWithPassword is a Supabase function that checks the email and password.
   const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   })
 
+  // If there's an error (like wrong password), we save the error message and stop loading.
   if (error) {
     setError(error.message)
     setLoading(false)
     return
   }
-
-  router.push('/dashboard')
+  // If sign-in is successful, we redirect the user to the landing page.
+  router.push('/landing')
 }
 
   // --- What the page looks like ---
-  // Everything inside the return() is what gets displayed.
   return (
 
     // Outer wrapper — centers everything on the screen
@@ -123,9 +113,10 @@ async function handleSignIn(e: React.FormEvent) {
 
           {/* The actual form */}
           <form
-            onSubmit={handleSignIn}
-            // ↑ When this form is submitted (button clicked or Enter pressed),
+
+            // When this form is submitted (button clicked or Enter pressed),
             // run our handleSignIn function
+            onSubmit={handleSignIn}
             style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
           >
 
@@ -150,15 +141,15 @@ async function handleSignIn(e: React.FormEvent) {
                 color: '#a89070',
                 pointerEvents: 'none', // so clicking the icon focuses the input
               }}>
-                ✉
+              <img src="/assets/email.png" alt="email" style={{ width: '18px', height: '18px', opacity: 0.6 }} />
               </span>
               <input
                 type="email"
                 placeholder="Enter your email address"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
-                // ↑ Every time the user types a character, e.target.value
+                // Every time the user types a character, e.target.value
                 // is the new full string in the box. We save it with setEmail.
+                onChange={e => setEmail(e.target.value)}
                 required
                 style={{
                   width: '100%',
@@ -185,14 +176,14 @@ async function handleSignIn(e: React.FormEvent) {
                 color: '#a89070',
                 pointerEvents: 'none',
               }}>
-                🔒
+              <img src="/assets/lock.png" alt="lock" style={{ width: '18px', height: '18px', opacity: 0.6 }} />
               </span>
               <input
-                type={showPassword ? 'text' : 'password'}
-                // ↑ This is the eye toggle. When showPassword is true,
+                // This is the eye toggle. When showPassword is true,
                 // type="text" shows the characters. When false,
                 // type="password" shows dots. React re-renders when
                 // showPassword changes, so the input switches instantly.
+                type={showPassword ? 'text' : 'password'}
                 placeholder="Enter your password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
@@ -229,7 +220,11 @@ async function handleSignIn(e: React.FormEvent) {
                   padding: '0',
                 }}
               >
-                {showPassword ? '🙈' : '👁'}
+                <img
+                  src={showPassword ? '/assets/hide.png' : '/assets/view.png'}
+                  alt={showPassword ? 'hide password' : 'show password'}
+                  style={{ width: '18px', height: '18px', opacity: 0.6 }}
+                />
               </button>
             </div>
 
@@ -269,7 +264,7 @@ async function handleSignIn(e: React.FormEvent) {
               }}
             >
               {loading ? 'Signing in...' : 'Sign in'}
-              {/* ↑ Ternary operator: condition ? valueIfTrue : valueIfFalse
+              {/* Ternary operator: condition ? valueIfTrue : valueIfFalse
                   If loading is true, show "Signing in..."
                   If loading is false, show "Sign in" */}
             </button>
@@ -297,22 +292,11 @@ async function handleSignIn(e: React.FormEvent) {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-          {/*
-            Once you export tree.svg from Figma and put it in
-            frontend/public/tree.svg, replace this div with:
-            <img src="/tree.svg" alt="Tree" style={{ maxHeight: '380px' }} />
-          */}
-          <p style={{
-            fontFamily: '"Playfair Display", serif',
-            fontStyle: 'italic',
-            color: '#5c4a3a',
-            opacity: 0.5,
-            fontSize: '0.85rem',
-            textAlign: 'center',
-            padding: '24px',
-          }}>
-            Add tree.svg here
-          </p>
+          <img
+            src="/assets/logo.png"
+            alt="Timecapsule tree"
+            style={{ maxHeight: '400px', width: '100%', height: '100%', objectFit: 'cover', marginBottom: '50px' }}
+          />
         </div>
 
       </div>
