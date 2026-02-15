@@ -16,3 +16,9 @@ new terminal:
 
 # Future Implementation Ideas
 - Automatic tagging based on media type (audio, video, text)
+- Edit existing memories
+- Download your memories
+- Friends backend connection
+- Notification implementation
+- Increased user personalization and accessibility
+- Increase responsiveness for mobile use
