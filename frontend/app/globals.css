@@ -116,9 +116,24 @@ html, body {
   bottom: 0;
   padding: 16px;
   background: var(--btn);
+  /* display: flex; */
+  /* justify-content: space-around; */
+  border-top: 1px solid var(--btn);
+  position: relative;
+}
+
+.footer-main {
   display: flex;
   justify-content: space-around;
-  border-top: 1px solid var(--btn);
+  align-items: center;
+  width: 100%;
+}
+
+.footer-logout {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 10;
 }
 
 .icon {
