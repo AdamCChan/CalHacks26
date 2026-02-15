@@ -12,7 +12,7 @@ import Link from 'next/link'
 // It navigates between pages without a full browser refresh.
 
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/client'
 
 export default function SignInPage() {
 // ↑ This is our page. "export default" means this is the main
