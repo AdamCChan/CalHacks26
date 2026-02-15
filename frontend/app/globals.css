@@ -38,7 +38,7 @@ html, body {
   position: sticky;
   top: 0;
   padding: 16px;
-  background: var(--background);
+  background: var(--btn);
   z-index: 100;
   display: flex;
   justify-content: center;
@@ -54,7 +54,7 @@ html, body {
   padding: 12px 20px;
   border-radius: 999px;
   border: none;
-  background: var(--secondary);
+  background: var(--bg);
 }
 
 /* MASONRY GRID */
@@ -89,9 +89,9 @@ html, body {
 .footer {
   position: sticky;
   bottom: 0;
-  background: var(--background);
   padding: 16px;
+  background: var(--btn);
   display: flex;
   justify-content: space-around;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--btn);
 }
