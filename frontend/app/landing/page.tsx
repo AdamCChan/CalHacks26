@@ -5,7 +5,7 @@
 
 import { createAdminClient } from "@/lib/supabase/admin";
 import Footer from "@/components/Footer";
-import CapsuleGrid from "./capsuleGrid";
+import CapsuleGrid from "../../components/capsuleGrid";
 
 // Fetches the actual text content from a .txt file in Supabase Storage
 async function fetchTextContent(url: string): Promise<string> {
@@ -78,6 +78,7 @@ export default async function LandingPage() {
       }}
     >
       <div style={{ flex: 1 }}>
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         <CapsuleGrid items={enrichedItems as any} />
       </div>
       <Footer />
