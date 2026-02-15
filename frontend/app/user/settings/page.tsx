@@ -27,6 +27,9 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import Footer from '@/components/Footer'
 import Header1 from '@/components/Header1'
+import Image from "next/image";
+const assetsFolderPath = "/assets";
+const logoAndSloganDark = "logo_slogan_dark.png"
 
 export default function SettingsPage() {
   const router = useRouter()
@@ -173,29 +176,25 @@ export default function SettingsPage() {
           boxShadow: '0 8px 48px rgba(60, 35, 10, 0.22)',
         }}>
 
-          {/* Watermark circle + text */}
-          <div style={{
+        {/* Watermark circle + logo */}
+        <div style={{
             position: 'absolute',
-            bottom: '-90px', left: '50%',
+            bottom: '10px', left: '50%',
             transform: 'translateX(-50%)',
             width: '480px', height: '480px',
-            borderRadius: '50%',
-            backgroundColor: 'rgba(80, 45, 15, 0.32)',
-            pointerEvents: 'none', zIndex: 0,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            // borderRadius: '50%',
+            // backgroundColor: 'rgba(80, 45, 15, 0.32)',
+            // pointerEvents: 'none', zIndex: 0,
+            // display: 'flex', alignItems: 'center', justifyContent: 'center',
+            overflow: 'hidden',
           }}>
-            <div style={{
-              textAlign: 'center',
-              color: 'rgba(210, 170, 120, 0.30)',
-              fontFamily: '"Playfair Display", serif',
-              fontSize: '1.9rem', fontWeight: 600,
-              lineHeight: 1.35, marginTop: '-80px',
-            }}>
-              timecapsule<br />
-              <span style={{ fontSize: '0.85rem', fontStyle: 'italic', fontWeight: 400 }}>
-                save today, for tomorrow
-              </span>
-            </div>
+            <Image
+              src={`${assetsFolderPath}/${logoAndSloganDark}`}
+              alt=""
+              width={500}
+              height={500}
+              style={{ opacity: 0.25, objectFit: 'contain', marginBottom: '80px' }}
+            />
           </div>
 
           {/* Title */}

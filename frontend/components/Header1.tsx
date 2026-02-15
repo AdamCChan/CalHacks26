@@ -22,7 +22,7 @@ export default function Header1() {
 
       <style>{`
         .header {
-          background-color: #656D4A;
+          background-color: #6b7a45;
           display: flex;
           align-items: center;
           justify-content: space-between;
