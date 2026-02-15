@@ -96,21 +96,24 @@ export default function NewCapsulePage() {
         </div> */}
       </header>
 
-      <main className="flex-1 p-6 flex justify-center">
+      <main className="flex-1 p-6 flex justify-center items-center">
         <div className="w-full max-w-6xl flex gap-6">
           {/* LEFT SIDE (Preview / Media) */}
-          <div className="flex-1 bg-[#B39A76] rounded-3xl p-4">
+          <div className="flex-1 bg-[#B39A76] rounded-[40px] p-5 flex items-center justify-center">
             {fileUrl ? (
               file?.type.startsWith("video") ? (
-                <video src={fileUrl} controls className="rounded-xl w-full" />
+                <video
+                  src={fileUrl}
+                  controls
+                  className="rounded-[30px] object-cover w-full h-150"
+                />
               ) : (
-                // <img src={fileUrl} className="rounded-xl w-full" />
                 <Image
                   src={fileUrl}
-                  alt={"Capsule image"}
-                  width={600}
-                  height={800}
-                  className={"rounded-xl w-full"}
+                  alt="Capsule image"
+                  width={1000}
+                  height={1000}
+                  className="rounded-[30px] object-cover w-full h-150"
                 />
               )
             ) : (
@@ -118,7 +121,7 @@ export default function NewCapsulePage() {
                 placeholder="Write something if no attachment..."
                 value={caption}
                 onChange={(e) => setCaption(e.target.value)}
-                className="w-full h-full rounded-xl p-4"
+                className="w-full h-150 rounded-[30px] p-6 resize-none outline-none bg-[#CBB79B]"
               />
             )}
           </div>
@@ -145,10 +148,10 @@ export default function NewCapsulePage() {
                 {revealOptions.map((option) => (
                   <label
                     key={option.months}
-                    className={`p-2 rounded-full text-center cursor-pointer ${
+                    className={`py-2 px-4 rounded-full text-center cursor-pointer text-sm transition ${
                       selectedMonths === option.months
-                        ? "bg-[#B39A76]"
-                        : "bg-[#6A734F]"
+                        ? "bg-[#B39A76] text-black"
+                        : "bg-[#6A734F] text-white hover:bg-[#7D865F]"
                     }`}
                   >
                     <input
@@ -168,7 +171,7 @@ export default function NewCapsulePage() {
       </main>
 
       {/* BOTTOM BUTTONS */}
-      <div className="fixed bottom-8 flex gap-8">
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex gap-10 items-center">
         {/* Trash */}
         <button onClick={handleRemove} className="bg-[#6A734F] p-4 rounded-xl">
           <Image
@@ -206,30 +209,30 @@ export default function NewCapsulePage() {
           onClick={toggleVisibility}
           className="bg-[#6A734F] p-4 rounded-xl"
         >
-          {isPublic ?
-          <Image
-            src="/assets/view.png"
-            alt=""
-            width={28}
-            height={28}
-            className="icon active"
-          />
-          :
-          <Image
-            src="/assets/hide.png"
-            alt=""
-            width={28}
-            height={28}
-            className="icon active"
-          />
-          }
+          {isPublic ? (
+            <Image
+              src="/assets/view.png"
+              alt=""
+              width={28}
+              height={28}
+              className="icon active"
+            />
+          ) : (
+            <Image
+              src="/assets/hide.png"
+              alt=""
+              width={28}
+              height={28}
+              className="icon active"
+            />
+          )}
         </button>
 
         {/* Create */}
         <button
           onClick={handleCreate}
           disabled={loading}
-          className="bg-black text-white p-4 rounded-full"
+          className="bg-black text-white p-5 rounded-full w-16 h-16 flex items-center justify-center"
         >
           <Image
             src="/assets/play.png"
